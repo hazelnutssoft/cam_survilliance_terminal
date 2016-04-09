@@ -1,0 +1,18 @@
+<div id="nav" class="navbar navbar-default" role="navigation">
+    <div id="navbar-header">
+        <a class="navbar-brand" href="/" onclick="activeMenuItem('home')">THCreate</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav" id="menu">
+            <li id="preview" class="{% if page_name == 'preview'%}active{%end%}">
+                <a href="/preview" >图像预览</a>
+            </li>
+            <li id="video" class="{% if page_name == 'video'%}active{%end%}">
+                <a href="/video" >视频监控</a>
+            </li>
+            <li id="setting" class="{% if page_name == 'setting'%}active{%end%}">
+                <a href="/setting" >系统设置</a>
+            </li>
+        </ul>
+    </div>
+</div>

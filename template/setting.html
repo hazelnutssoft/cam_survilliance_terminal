@@ -1,0 +1,193 @@
+{%extends "base.html" %}
+{% block metadata%}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/setting_app.css">
+<script src="/static/js/setting_app.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/bootstrap-datetimepicker.min.css">
+<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/custom-theme/jquery-ui-1.9.2.custom.css">
+<script src="/static/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+{%end%}
+
+{%block title%}系统设置{%end%}
+
+{%block content%}
+<div class="row content">
+    <div style="margin-left: 15px;" class="col-md-8">
+    <ul class="nav nav-tabs nav-justified" id="nav">
+        <li role="presentation" id="nav_1" class="active" onclick="switchTab(1,0)">
+            <a href="#">设备信息</a>
+        </li>
+        <li role="presentation" id="nav_2" onclick="switchTab(2,0)">
+            <a href="#">系统时间</a>
+        </li>
+        <li role="presentation" id="nav_3" onclick="switchTab(3,1)">
+            <a href="#">系统维护</a>
+        </li>
+    </ul>
+
+    <ul id="tab_con" class="tab_con">
+        <p></p>
+
+        <li id="basic_tab_con_1" class="active">
+            <div class="panel panel-default">
+              <div class="panel-heading">基本信息</div>
+              <div class="panel-body">
+                  <div class="row">
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        设备位置
+                        </span>
+                        <input type="text" class="form-control" aria-label="..." id="device_location" value=""/>
+                        <input type="text" id="location_set_btn" class="form-control btn btn-primary" role="button" value="设置" onclick="set_location()"/>
+                    </div><!-- /input-group -->
+                  </div><!-- /.col-lg-6 -->
+                      <br/>
+
+                  <div class="col-lg-6">
+                    <div class="list-group">
+                        <div class="list-group-item input-group">
+                            <span class="input-group-addon">
+                                用户名称
+                            </span>
+
+                            <input type="text" class="form-control" aria-label="..." id="user_name">
+                        </div>
+                        <div class="list-group-item input-group">
+                            <span class="input-group-addon">
+                                <用户密码></用户密码>
+                            </span>
+
+                            <input type="password" class="form-control" aria-label="..." id="user_password">
+                        </div>
+                        <div class="list-group-item input-group">
+                            <input type="checkbox" aria-label="..." id="is_observed">
+                               <span>关联设备</span>
+                        </div>
+                        <div class="list-group-item">
+                            <input role="button" onclick="user_observer()" value="设置" class="form-control btn btn-primary" type="text"/>
+                        </div>
+                    </div><!-- /input-group -->
+                  </div><!-- /.col-lg-6 -->
+                  </div><!-- /.row -->
+                  <br/>
+
+              </div>
+            </div>
+        </li>
+
+        <!--tab 2-->
+        <li id="basic_tab_con_2">
+            <div class="panel panel-default">
+              <div class="panel-heading">系统时间</div>
+              <div class="panel-body">
+                  <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            设备时间
+                          </span>
+                          <input type="text" class="form-control" aria-label="..." readonly="readonly" disabled="disabled" id="device_time">
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                  </div><!-- /.row -->
+                  <p></p>
+                  <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            设置时间
+                          </span>
+                          <input type="text" class="form-control form_datetime" aria-label="..." id="time2set">
+                           <span class="input-group-addon">
+                            <input type="checkbox" aria-label="..." id="is_synchronize">
+                               <span>同步本机时间</span>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                  </div>
+                  <p></p>
+
+              </div>
+            </div>
+        </li>
+
+
+
+        <script type="text/javascript">
+            $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+        </script>
+
+        <li id="basic_tab_con_3">
+            <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
+                <div class="panel-heading">摄像头信息</div>
+                <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <colgroup>
+                        <col class="col-xs-1">
+                        <col class="col-xs-3">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>选中</th>
+                        <th>编号</th>
+                        <th>目标</th>
+                        <th>周期</th>
+                    </tr>
+                    </thead>
+                    {%for pos in positions%}
+                    <tr class="position_info">
+                        <td class="is_checked"> <input type="checkbox" aria-label="..."></td>
+                        <td class="position">{{pos['position']}}</td>
+                        <td class="object_name">{{pos['object_name']}}</td>
+                        <td class="duration">{{pos['duration']}}</td>
+                    </tr>
+                    {%end%}
+                </table>
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" id="add_dev_info" class="input-group-addon form-control btn btn-primary" role="button" value="添加" onclick="add_dev_info()">
+                            <input type="text" id="edit_dev_info" class="form-control btn btn-primary" role="button" value="编辑" onclick="edit_dev_info()">
+                            <input type="text" id="delete_dev_info" class="form-control btn btn-primary" role="button" value="删除" onclick="delete_dev_info()">
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">重启</div>
+              <div class="panel-body">
+                  <div class="row">
+                      <div class="col-lg-6">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            重启设备
+                          </span>
+                          <input type="text" id="reboot_btn" class="form-control btn btn-primary" role="button" value="重启" onclick="device_reboot()">
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                  </div><!-- /.row -->
+                  <p></p>
+              </div>
+            </div>
+        </li>
+
+
+
+    </ul>
+    <span>
+        <input class="btn btn-primary" id="save_config_btn" role="button" value="保存" onclick="save_basic_config()">
+        <p style="display:none" id="is_success">
+            保存成功
+        </p>
+    </span>
+</div>
+</div>
+<div>
+    <div class="LoadingBg"></div>
+    <div class="Loading_message"></div>
+    <div class="LoadingImg"></div>
+</div>
+{%end%}

@@ -1,0 +1,76 @@
+{%extends "base.html" %}
+{% block metadata%}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/browser_app.css">
+<script src="/static/js/browser_app.js"></script>
+{%end%}
+{%block title%}主页{%end%}
+
+{%block content%}
+<div class="row">
+    <div class="col-sm-6 col-md-3 col-lg-6">
+        {%if newest_img != []%}
+        <a href="#" class="thumbnail">
+            <img src="/static/img/thumbnail/{{newest_img['thumbnail_path']}}"/>
+
+        </a>
+        <div class="caption">
+            <p>最新获取图像-{{ newest_img['date'] }}</p>
+
+        </div>
+        {% else %}
+        <div class="caption" style="margin-top: 100px">
+            <h3>欢迎使用-物候监测系统</h3>
+
+        </div>
+        {%end%}
+    </div>
+    <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
+        <div class="panel-heading">基本信息</div>
+        <div class="panel-body">
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-3">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>项目</th>
+                    <th>信息</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td class="active">设备地址</td>
+                    <td >{{basic_info['location']}}</td>
+                </tr>
+                <tr>
+                    <td class="active">剩余存储</td>
+                    <td >{{basic_config_dict['storage']}}GB</td>
+                </tr>
+
+            </table>
+            <table class="table table-bordered table-striped">
+                <colgroup>
+                    <col class="col-xs-1">
+                    <col class="col-xs-3">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>目标</th>
+                    <th>图片数量</th>
+                </tr>
+                </thead>
+                {%for pos in positions%}
+                <tr>
+                    <td class="active">{{pos['position']}}</td>
+                    <td >{{pos['object_name']}}</td>
+                    <td>{{pos['image_count']}}</td>
+                </tr>
+                {%end%}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{%end%}

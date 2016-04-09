@@ -1,0 +1,131 @@
+{%extends "base.html" %}
+{% block metadata%}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/setting_app.css">
+<script src="/static/js/setting_app.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/bootstrap-datetimepicker.min.css">
+<script src="/static/js/bootstrap-datetimepicker.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/custom-theme/jquery-ui-1.9.2.custom.css">
+<script src="/static/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+{%end%}
+
+{%block title%}系统设置{%end%}
+
+{%block content%}
+<div class="row content">
+    <div style="margin-left: 15px;" class="col-md-8">
+    <ul class="nav nav-tabs nav-justified" id="nav">
+        <li role="presentation" id="nav_1" class="active">
+            <a href="#">{{operater}}摄像头信息</a>
+        </li>
+
+    </ul>
+
+    <ul id="tab_con" class="tab_con">
+        <p></p>
+
+        <li id="basic_tab_con_1" class="active">
+            <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
+                <div class="panel-heading">摄像头信息</div>
+                <div class="panel-body">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            观测目标名称
+                          </span>
+                          <select class="combobox form-control" id="object_name">
+                                {%for object_name in object_names%}
+                                    <option value="{{object_name}}">{{object_name}}</option>
+                                {%end%}
+                          </select>
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    {% if operator== "add" %}
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            编号
+                          </span>
+
+                            <select class="combobox form-control" id="position">
+                                {%for pos in positions%}
+                                    <option value="{{pos}}">{{pos}}</option>
+                                {%end%}
+                          </select>
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    {%else%}
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            编号
+                          </span>
+
+                            <input type="text" class="form-control" readonly="readonly" id="position">
+
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    {%end%}
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            拍摄间隔
+                          </span>
+                          <select class="combobox form-control" id="duration">
+                              <option value="24">24h</option>
+                              <option value="12">12h</option>
+                              <option value="6">6h</option>
+                              <option value="3">3h</option>
+                              <option value="1">1h</option>
+                          </select>
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            摄像机IP地址
+                          </span>
+                          <input class="form-control" id="ip_address" type="text">
+
+                        </div><!-- /input-group -->
+                      </div><!-- /.col-lg-6 -->
+                    </div><!-- /.row -->
+                    {%if operater == '添加'%}
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" id="apply_add" class="input-group-addon form-control btn btn-primary" role="button" value="应用" onclick="apply_adding()">
+                            <input type="text" id="cancel_add" class="form-control btn btn-primary" role="button" value="取消" onclick="cancel_adding()">
+                        </div><!-- /input-group -->
+                    </div>
+                    {%else%}
+                    <div class="row">
+                        <div class="input-group">
+                            <input type="text" id="apply_edit" class="input-group-addon form-control btn btn-primary" role="button" value="应用" onclick="apply_edition()">
+                            <input type="text" id="cancel_edit" class="form-control btn btn-primary" role="button" value="取消" onclick="cancel_edition()">
+                        </div><!-- /input-group -->
+                    </div>
+                    {%end%}
+                </div>
+            </div>
+
+        </li>
+    </ul>
+
+</div>
+</div>
+<div>
+    <div class="LoadingBg"></div>
+    <div class="Loading_message"></div>
+    <div class="LoadingImg"></div>
+</div>
+{%end%}
