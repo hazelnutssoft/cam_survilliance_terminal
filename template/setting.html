@@ -72,7 +72,7 @@
                                		<input type="checkbox" aria-label="..." id="is_observed">
 				</span>
 				<span class="input-group-btn">
-                        	<button type="button" id="location_set_btn" class="btn btn-primary" onclick="set_location()"/>
+                        	<button type="button" id="observer_set_btn" class="btn btn-primary" onclick="user_observer()"/>
 				设置
 				</button>
 				</span>
@@ -156,10 +156,11 @@
                     {%end%}
                 </table>
                     <div class="row">
-                        <div class="input-group">
-                            <input type="text" id="add_dev_info" class="input-group-addon form-control btn btn-primary" role="button" value="添加" onclick="add_dev_info()">
-                            <input type="text" id="edit_dev_info" class="form-control btn btn-primary" role="button" value="编辑" onclick="edit_dev_info()">
-                            <input type="text" id="delete_dev_info" class="form-control btn btn-primary" role="button" value="删除" onclick="delete_dev_info()">
+                        <div class="btn-group" role="group">
+                            <input type="text" id="add_dev_info" class=" btn btn-primary" role="button" value="添加" onclick="add_dev_info()">
+                            <input type="text" id="edit_dev_info" class="btn btn-primary" role="button" value="编辑" onclick="edit_dev_info()">
+                            <input type="text" id="delete_dev_info" class="btn btn-primary" role="button" value="删除" onclick="delete_dev_info()">
+                            <input type="text" id="upload_dev_info" class="btn btn-primary" role="button" value="上传配置" onclick="upload_dev_info()">
                         </div><!-- /input-group -->
                     </div>
                 </div>
@@ -188,12 +189,16 @@
 
 
     </ul>
+        <div>
+        <p style="display:none" id="is_success">
+            保存成功
+        </p>
+        </div>
 </div>
 </div>
 <div>
     <div class="LoadingBg"></div>
     <div class="Loading_message"></div>
     <div class="LoadingImg"></div>
-    <div id="is_success"></div>
 </div>
 {%end%}
