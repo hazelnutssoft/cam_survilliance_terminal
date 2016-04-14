@@ -439,6 +439,25 @@ function delete_dev_info(){
     })
 }
 
+function upload_dev_info(){
+    $.ajax({
+        url:'operater_position',
+        type:'get',
+        dataType:'text',
+        data:{
+            'operater':'upload'
+        },
+        success:function(){
+            document.getElementById('is_success').innerHTML='上传成功';
+            document.getElementById('is_success').style.display='inline';
+        },
+        error:function(){
+            document.getElementById('is_success').innerHTML='上传失败';
+            document.getElementById('is_success').style.display='inline';
+        }
+    });
+}
+
 function apply_adding(){
     var object_name = document.getElementById('object_name').value;
     var position = document.getElementById('position').value;
