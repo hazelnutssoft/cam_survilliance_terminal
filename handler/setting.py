@@ -6,11 +6,12 @@ from tornado.options import options
 from base import Base_Handler
 from util.dbtool import *
 from util.snapshot import SnapshotUtil
-
+import json
 # from util.conf import *
 # import shutil
 from util import *
 import time
+from util.marcos import *
 
 class setting_handler(Base_Handler):
     def get(self):
@@ -61,14 +62,32 @@ class operator_position_handler(Base_Handler):
         object_names = get_object_names()
         if operator == "add":
             self.render('operate_position.html', operator=operator, positions=positions, object_names=object_names, page_name="setting")
+            return
         if operator == "edit":
             self.render('operate_position.html', operator=operator, positions=positions, object_names=object_names, page_name="setting")
+            return
+        if operator == "upload":
+            return self.upload_positions()
+
+    def upload_positions(self):
+        positions = get_positions()
+        url = "http://{0}:{1}{2}".format(SERVER_WEBSITE, API_PORT, DEVICE_URL)
+        j_data = json.dumps(positions)
+        req = urllib2.Request(url, j_data)
+        try:
+            res = urllib2.urlopen(req, timeout=30)
+            if res.read().strip() == RES_SUCESS:
+                return True
+            else:
+                return False
+        except Exception as e:
+            return False
 
 
 class device_time_handler(Base_Handler):
     @tornado.web.asynchronous
     def get(self):
-        device_time =  time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        device_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         self.write(device_time)
         self.finish()
         # self.get_data(callback=self.on_finish)
@@ -88,3 +107,17 @@ class time_synchronize_handler(Base_Handler):
 class reboot_handler(Base_Handler):
     def get(self):
         device_reboot()
+
+
+class device_location_handler(Base_Handler):
+    def get(self):
+        location = self.get_argument('location','')
+        if location:
+            kw = {}
+            get_basic_conf_value(kw)
+            kw['device_location'] = location
+            set_basic_conf_value(kw)
+            self.write("ok")
+            return
+        self.write("fail")
+        return
