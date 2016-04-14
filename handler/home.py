@@ -19,7 +19,7 @@ class home_handler(Base_Handler):
         get_basic_conf_value(kw)
         positions = dbtool.get_positions()
         for pos in positions:
-            image_count = dbtool.get_images_count(pos.position)
+            image_count = dbtool.get_images_count(pos['position'])
             pos['image_count'] = image_count if image_count else 0
 
 

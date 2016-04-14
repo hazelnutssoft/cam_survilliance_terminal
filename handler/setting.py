@@ -15,7 +15,8 @@ import time
 class setting_handler(Base_Handler):
     def get(self):
         tab = self.get_argument('tab',"1")
-        self.render('setting.html', tab = tab)
+        positions = get_positions()
+        self.render('setting.html', page_name="setting",tab = tab,positions = positions)
 
 
 class apply_adding_handler(Base_Handler):
@@ -54,13 +55,14 @@ class apply_edition_handler(Base_Handler):
 
 class operator_position_handler(Base_Handler):
     def get(self):
-        operation = self.get_argument('operator', '')
+        operator = self.get_argument('operater', '')
+
         positions = [str(i) for i in range(5)]
         object_names = get_object_names()
-        if operation == "add":
-            self.render('operate_position.html', operation=operation, positions=positions, object_names=object_names)
-        if operation == "edit":
-            self.render('operate_position.html', operation=operation, positions=positions, object_names=object_names)
+        if operator == "add":
+            self.render('operate_position.html', operator=operator, positions=positions, object_names=object_names, page_name="setting")
+        if operator == "edit":
+            self.render('operate_position.html', operator=operator, positions=positions, object_names=object_names, page_name="setting")
 
 
 class device_time_handler(Base_Handler):

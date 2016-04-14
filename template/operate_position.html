@@ -17,7 +17,7 @@
     <div style="margin-left: 15px;" class="col-md-8">
     <ul class="nav nav-tabs nav-justified" id="nav">
         <li role="presentation" id="nav_1" class="active">
-            <a href="#">{{operater}}摄像头信息</a>
+            <a href="#">摄像头信息</a>
         </li>
 
     </ul>
@@ -100,7 +100,7 @@
                         </div><!-- /input-group -->
                       </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
-                    {%if operater == '添加'%}
+                    {%if operator == 'add'%}
                     <div class="row">
                         <div class="input-group">
                             <input type="text" id="apply_add" class="input-group-addon form-control btn btn-primary" role="button" value="应用" onclick="apply_adding()">
@@ -127,5 +127,6 @@
     <div class="LoadingBg"></div>
     <div class="Loading_message"></div>
     <div class="LoadingImg"></div>
+    <div id="is_success"></div>
 </div>
 {%end%}

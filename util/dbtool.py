@@ -68,7 +68,7 @@ def get_images_count(position):
 def insert_position(object_name, position, duration, ip_address):
     with database_resource() as cursor:
         sqlstr = 'insert into %s (object_name, position, duration, ip_address)' % (DB_POSITION_TABLE_NAME)
-        sqlstr = sqlstr+ 'values (%s, %s, %s)'
+        sqlstr = sqlstr+ 'values (%s, %s, %s, %s)'
         res = cursor.execute(sqlstr, [object_name, position, duration, ip_address])
         if res >0:
             return True
@@ -81,7 +81,7 @@ def update_position(object_name, position, duration, ip_address):
         res = cursor.execute(sqlstr)
         if res > 0:
             return True
-        else
+        else:
             return False
 def get_positions():
     conn = create_engine(DB_USER, DB_USER_PASSWORD, DB_NAME, is_auto_commit=True)

@@ -7,6 +7,7 @@ import shutil
 import md5
 import uuid
 
+from snapshot import *
 from marcos import *
 from dbtool import *
 import ConfigParser
@@ -14,7 +15,7 @@ import subprocess
 
 
 
-def get_pwd_Dir():
+def get_pwd_dir():
     return os.getcwd()
 
 def get_ip_address(ifname):
@@ -43,7 +44,7 @@ def disk_stat():
     return hd
 
 def clear_data():
-    pwd = get_pwd_Dir()
+    pwd = get_pwd_dir()
     captured_dir = os.path.join(pwd, CAPTURED_DIR)
     thunmbnail_dir = os.path.join(pwd, THUMBNAIL_DIR)
 
@@ -55,7 +56,7 @@ def clear_data():
     db_truncate()
 
 def get_object_names():
-    conf_dir = get_pwd_Dir() + '/conf/object_names.ini'
+    conf_dir = get_pwd_dir() + '/conf/object_names.ini'
     config = ConfigParser.ConfigParser()
     config.read(conf_dir)
     object_names_str = config.get('objects', 'names')
@@ -63,8 +64,8 @@ def get_object_names():
     return object_names
 
 def get_basic_conf_value(kw):
-    # conf_dir = os.path.join(getPWDDir(), '/conf/device_conf.ini')
-    conf_dir = get_pwd_Dir() + '/conf/device_conf.ini'
+    # conf_dir = os.path.join(get_pwd_dir(), '/conf/device_conf.ini')
+    conf_dir = get_pwd_dir() + '/conf/device_conf.ini'
     # print conf_dir
     read_conf(conf_dir, kw)
     kw['storage'] = str(disk_stat()['available'])
@@ -72,7 +73,7 @@ def get_basic_conf_value(kw):
     # return
 
 def set_basic_conf_value(kw):
-    conf_dir = get_pwd_Dir() + '/conf/device_conf.ini'
+    conf_dir = get_pwd_dir() + '/conf/device_conf.ini'
     # print conf_dir
     write_conf(conf_dir, kw)
     # kw['storage'] = str(disk_stat()['available'])

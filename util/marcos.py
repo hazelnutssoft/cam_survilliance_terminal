@@ -13,7 +13,7 @@ CAPTURED_DIR = "static/img/captured"
 DEV_CONF_PATH = "conf/dev.conf"
 
 #about db
-DB_USER = 'sonic513'
+DB_USER = 'root'
 
 DB_USER_PASSWORD = 'sonic513'
 
@@ -30,7 +30,7 @@ RES_FAIL = 1
 #about img page
 PAGE_NUMBER = 16
 
-SERVER_WEBSITE = "localhost"
+SERVER_WEBSITE = "192.168.0.160"
 
 UPLOAD_IMG_URL = "/api/upload_image"
 

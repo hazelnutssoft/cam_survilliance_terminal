@@ -8,21 +8,10 @@
 {%block content%}
 <div class="row">
     <div class="col-sm-6 col-md-3 col-lg-6">
-        {%if newest_img != []%}
-        <a href="#" class="thumbnail">
-            <img src="/static/img/thumbnail/{{newest_img['thumbnail_path']}}"/>
-
-        </a>
-        <div class="caption">
-            <p>最新获取图像-{{ newest_img['date'] }}</p>
-
-        </div>
-        {% else %}
         <div class="caption" style="margin-top: 100px">
             <h3>欢迎使用-物候监测系统</h3>
 
         </div>
-        {%end%}
     </div>
     <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
         <div class="panel-heading">基本信息</div>
@@ -40,17 +29,17 @@
                 </thead>
                 <tr>
                     <td class="active">设备地址</td>
-                    <td >{{basic_info['location']}}</td>
+                    <td >{{basic_info['device_location']}}</td>
                 </tr>
                 <tr>
                     <td class="active">剩余存储</td>
-                    <td >{{basic_config_dict['storage']}}GB</td>
+                    <td >{{basic_info['storage']}}GB</td>
                 </tr>
 
             </table>
             <table class="table table-bordered table-striped">
                 <colgroup>
-                    <col class="col-xs-1">
+                    <col class="col-xs-2">
                     <col class="col-xs-3">
                 </colgroup>
                 <thead>

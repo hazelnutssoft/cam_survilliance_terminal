@@ -14,7 +14,7 @@
 
 {%block content%}
 <div class="row content">
-    <div style="margin-left: 15px;" class="col-md-8">
+    <div style="margin-left: 15px;" class="col-md-10">
     <ul class="nav nav-tabs nav-justified" id="nav">
         <li role="presentation" id="nav_1" class="active" onclick="switchTab(1,0)">
             <a href="#">设备信息</a>
@@ -35,41 +35,48 @@
               <div class="panel-heading">基本信息</div>
               <div class="panel-body">
                   <div class="row">
-                  <div class="col-lg-6">
-                    <div class="input-group">
+                    <div class="input-group col-lg-5">
                         <span class="input-group-addon">
                         设备位置
                         </span>
                         <input type="text" class="form-control" aria-label="..." id="device_location" value=""/>
-                        <input type="text" id="location_set_btn" class="form-control btn btn-primary" role="button" value="设置" onclick="set_location()"/>
+			<span class="input-group-btn">
+                        <button type="button" id="location_set_btn" class="btn btn-primary" onclick="set_location()"/>
+			设置
+			</button>
+			</span>
                     </div><!-- /input-group -->
-                  </div><!-- /.col-lg-6 -->
                       <br/>
-
-                  <div class="col-lg-6">
-                    <div class="list-group">
-                        <div class="list-group-item input-group">
+		</div><!--row-->
+		<div class="row">
+                  <div class="col-lg-5">
+                        <div class="row input-group">
                             <span class="input-group-addon">
                                 用户名称
                             </span>
 
                             <input type="text" class="form-control" aria-label="..." id="user_name">
                         </div>
-                        <div class="list-group-item input-group">
+			<p></p>
+                        <div class="row input-group">
                             <span class="input-group-addon">
-                                <用户密码></用户密码>
+                                用户密码
                             </span>
 
                             <input type="password" class="form-control" aria-label="..." id="user_password">
                         </div>
-                        <div class="list-group-item input-group">
-                            <input type="checkbox" aria-label="..." id="is_observed">
-                               <span>关联设备</span>
+			<p></p>
+                        <div class="row input-group">
+				<span class="input-group-addon">
+                               		<span >关联设备</span>
+                               		<input type="checkbox" aria-label="..." id="is_observed">
+				</span>
+				<span class="input-group-btn">
+                        	<button type="button" id="location_set_btn" class="btn btn-primary" onclick="set_location()"/>
+				设置
+				</button>
+				</span>
                         </div>
-                        <div class="list-group-item">
-                            <input role="button" onclick="user_observer()" value="设置" class="form-control btn btn-primary" type="text"/>
-                        </div>
-                    </div><!-- /input-group -->
                   </div><!-- /.col-lg-6 -->
                   </div><!-- /.row -->
                   <br/>
@@ -84,7 +91,7 @@
               <div class="panel-heading">系统时间</div>
               <div class="panel-body">
                   <div class="row">
-                      <div class="col-lg-8">
+                      <div class="col-lg-6">
                         <div class="input-group">
                           <span class="input-group-addon">
                             设备时间
@@ -95,7 +102,7 @@
                   </div><!-- /.row -->
                   <p></p>
                   <div class="row">
-                      <div class="col-lg-8">
+                      <div class="col-lg-6">
                         <div class="input-group">
                           <span class="input-group-addon">
                             设置时间
@@ -121,13 +128,15 @@
         </script>
 
         <li id="basic_tab_con_3">
-            <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
+		<div class="row">
+		<div class="panel panel-default">
                 <div class="panel-heading">摄像头信息</div>
                 <div class="panel-body">
                 <table class="table table-bordered table-striped">
                     <colgroup>
-                        <col class="col-xs-1">
                         <col class="col-xs-3">
+                        <col class="col-xs-3">
+			<col class="col-xs-3">
                     </colgroup>
                     <thead>
                     <tr>
@@ -155,7 +164,8 @@
                     </div>
                 </div>
             </div>
-
+	    </div>
+	    <div class="row">
             <div class="panel panel-default">
               <div class="panel-heading">重启</div>
               <div class="panel-body">
@@ -172,22 +182,18 @@
                   <p></p>
               </div>
             </div>
+	    </div>
         </li>
 
 
 
     </ul>
-    <span>
-        <input class="btn btn-primary" id="save_config_btn" role="button" value="保存" onclick="save_basic_config()">
-        <p style="display:none" id="is_success">
-            保存成功
-        </p>
-    </span>
 </div>
 </div>
 <div>
     <div class="LoadingBg"></div>
     <div class="Loading_message"></div>
     <div class="LoadingImg"></div>
+    <div id="is_success"></div>
 </div>
 {%end%}
