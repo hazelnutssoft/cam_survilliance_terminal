@@ -83,6 +83,8 @@ def update_position(object_name, position, duration, ip_address):
             return True
         else:
             return False
+
+
 def get_positions():
     conn = create_engine(DB_USER, DB_USER_PASSWORD, DB_NAME, is_auto_commit=True)
     cursor = conn.cursor(dictionary=True)
