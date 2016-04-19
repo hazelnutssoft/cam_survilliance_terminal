@@ -3,6 +3,7 @@ handlers = [
     #about login
     #about main page
     (r"/", home_handler),
+    (r'/browser',browser_handler),
     (r"/setting", setting_handler),
     (r"/apply_edition", apply_edition_handler),
     (r"/apply_adding", apply_adding_handler),

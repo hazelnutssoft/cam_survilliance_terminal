@@ -30,6 +30,8 @@ RES_FAIL = 1
 #about img page
 PAGE_NUMBER = 16
 
+IMAGE_NUMBER_FOR_PAGE = 16
+
 SERVER_WEBSITE = "192.168.0.160"
 
 UPLOAD_IMG_URL = "/api/upload_image"

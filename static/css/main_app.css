@@ -21,6 +21,13 @@ a:hover {
   border-top: 1px solid #ccc;
 }
 
+.footer-copyright {
+    margin-top: 2em;
+    padding: 2em 2em;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    text-align: center;
+}
+
 .right{
     float: right;
 }
@@ -56,7 +63,6 @@ a:hover {
 
 .submenu{
     padding:5px 10px;
-
     border-bottom: 1px solid #dddddd;
     display: block;
     margin-left:23px;
