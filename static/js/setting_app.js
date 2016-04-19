@@ -98,7 +98,7 @@ $(function(){
 
     $('#is_synchronize').change(function(){
         //alert("change!")
-        if(this.checked==true){
+        if(this.checked){
             document.getElementById('time2set').value = curent_time()
             //var clock = curent_time()
             $.ajax({
@@ -350,18 +350,26 @@ function device_reboot(){
 
 
 function user_observer(){
+    //alert(document.getElementById('is_observed').checked);
+
     $.ajax({
         url:'user_observer',
-        type:'get',
+        type:'post',
         dataType:'text',
         data:{
             'user_name': document.getElementById('user_name').value,
             'user_password': document.getElementById('user_password').value,
-            'is_observed': document.getElementById('is_observed').value,
+            'is_observed': document.getElementById('is_observed').checked,
         },
-        success:function(){
+        success:function(data, status){
+            if(data == "ok"){
             document.getElementById('is_success').innerHTML='同步成功';
             document.getElementById('is_success').style.display='inline';
+	    }
+            else{
+	    document.getElementById('is_success').innerHTML='同步失败';
+            document.getElementById('is_success').style.display='inline';    
+            }
         },
         error:function(){
             document.getElementById('is_success').innerHTML='同步失败';
@@ -396,16 +404,22 @@ function add_dev_info(){
 
 function edit_dev_info(){
     var position = 1;
+    var object_name = "";
+    var duration = "";
+    var ip_address ="";
     $('.position_info').each(
         function(){
-            var is_checked = this.find('td.is_checked input').val();
+            var is_checked = $(this).find('td.is_checked input')[0].checked;
 
-            if(is_checked == 'True'){
-                position = this.find('td.position').html();
-
+            if(is_checked){
+                position = $(this).find('td.position').html();
+                object_name = $(this).find('td.object_name').html();
+                duration = $(this).find('td.duration').html();
+                ip_address = $(this).find('td.ip_address').html();
             }
     })
-    var url = "/operater_position?operater=edit&position="+position;
+
+    var url = "/operater_position?operater=edit&position="+position+"&object_name="+object_name+"&duration="+duration+"&ip_address="+ip_address;
     window.location.replace(url);
 }
 
@@ -413,10 +427,9 @@ function delete_dev_info(){
     var positions = new Array();
     $('.position_info').each(
         function(){
-            var is_checked = this.find('td.is_checked input').val();
-
-            if(is_checked == 'True'){
-                var position = this.find('td.position').html();
+            tt = $(this).find('input')[0].checked;
+            if(tt){
+                var position = $(this).find('td.position').html();
                 positions.push(position);
             }
     });
@@ -426,9 +439,15 @@ function delete_dev_info(){
         dataType:'text',
         data:{
             'operater':'delete',
-            'content': JSON.stringify(positions)
+            'content': positions
         },
-        success:function(){
+        success:function(res, status){
+            $('.position_info').each(function(){
+                var is_c = $(this).find('td.is_checked input')[0].checked;
+                if(is_c){
+                    $(this).remove();
+                }
+            })
             document.getElementById('is_success').innerHTML='删除成功';
             document.getElementById('is_success').style.display='inline';
         },
@@ -447,9 +466,17 @@ function upload_dev_info(){
         data:{
             'operater':'upload'
         },
-        success:function(){
-            document.getElementById('is_success').innerHTML='上传成功';
+        success:function(res, status){
+               // alert(res);
+            if(res == "ok")
+                {
+                    document.getElementById('is_success').innerHTML='上传成功';
+                    document.getElementById('is_success').style.display='inline';
+                }
+                else{
+            document.getElementById('is_success').innerHTML='上传失败';
             document.getElementById('is_success').style.display='inline';
+                }
         },
         error:function(){
             document.getElementById('is_success').innerHTML='上传失败';
@@ -466,7 +493,7 @@ function apply_adding(){
 
     $.ajax({
         url:'apply_adding',
-        type:'get',
+        type:'post',
         dataType:'text',
         data:{
             'object_name': object_name,
@@ -474,10 +501,10 @@ function apply_adding(){
             'duration': duration,
             'ip_address': ip_address,
         },
-        success: function(res){
-            if(res == "True")
+        success: function(res,status){
+            if(res == "ok")
             {
-                window.location.replace('/setting?tab=2')
+                window.location.replace('/setting?tab=3')
             }
             else
             {
@@ -489,7 +516,7 @@ function apply_adding(){
 }
 
 function cancel_adding(){
-    var url = "/setting?tab=2";
+    var url = "/setting?tab=3";
     window.location.replace(url);
 }
 
@@ -501,7 +528,7 @@ function apply_edition(){
 
     $.ajax({
         url:'apply_edition',
-        type:'get',
+        type:'post',
         dataType:'text',
         data:{
             'object_name': object_name,
@@ -509,10 +536,11 @@ function apply_edition(){
             'duration': duration,
             'ip_address': ip_address,
         },
-        success: function(res){
-            if(res == "True")
+        success: function(res, status){
+           // alert(res)
+            if(res == "ok")
             {
-                window.location.replace('/setting?tab=2')
+                window.location.replace('/setting?tab=3')
             }
             else
             {
@@ -524,6 +552,6 @@ function apply_edition(){
 }
 
 function cancel_edition(){
-    var url = "/setting?tab=2";
+    var url = "/setting?tab=3";
     window.location.replace(url);
 }
