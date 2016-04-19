@@ -3,6 +3,8 @@
 
 import os
 import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import tornado.web
 import tornado.ioloop
 from handler import *
@@ -31,5 +33,6 @@ def create_app():
 if __name__ == "__main__":
     app = create_app()
     app.listen(options.port)
-    tornado.ioloop.IOLoop.instance().start()
+    SnapshotUtil.get_instance().init_snapshot()
     SnapshotUtil.get_instance().snapshot_start()
+    tornado.ioloop.IOLoop.instance().start()

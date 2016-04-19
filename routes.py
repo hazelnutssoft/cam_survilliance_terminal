@@ -9,6 +9,7 @@ handlers = [
     (r"/reboot", reboot_handler),
     (r"/device_time", device_time_handler),
     (r"/device_location", device_location_handler),
+    (r"/user_observer", user_observer_handler), 
     (r"/time_synchronize", time_synchronize_handler),
     (r"/operater_position", operator_position_handler),
 ]
