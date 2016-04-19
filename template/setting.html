@@ -16,13 +16,13 @@
 <div class="row content">
     <div style="margin-left: 15px;" class="col-md-10">
     <ul class="nav nav-tabs nav-justified" id="nav">
-        <li role="presentation" id="nav_1" class="active" onclick="switchTab(1,0)">
+        <li role="presentation" id="nav_1" {%if tab=="1"%}class="active"{%end%} onclick="switchTab(1,0)">
             <a href="#">设备信息</a>
         </li>
-        <li role="presentation" id="nav_2" onclick="switchTab(2,0)">
+        <li role="presentation" id="nav_2" onclick="switchTab(2,0)"{%if tab == "2"%}class="active"{%end%}>
             <a href="#">系统时间</a>
         </li>
-        <li role="presentation" id="nav_3" onclick="switchTab(3,1)">
+        <li role="presentation" id="nav_3" {%if tab=="3"%}class="active"{%end%} onclick="switchTab(3,1)">
             <a href="#">系统维护</a>
         </li>
     </ul>
@@ -30,68 +30,52 @@
     <ul id="tab_con" class="tab_con">
         <p></p>
 
-        <li id="basic_tab_con_1" class="active">
-            <div class="panel panel-default">
-              <div class="panel-heading">基本信息</div>
-              <div class="panel-body">
-                  <div class="row">
-                    <div class="input-group col-lg-5">
-                        <span class="input-group-addon">
-                        设备位置
-                        </span>
-                        <input type="text" class="form-control" aria-label="..." id="device_location" value=""/>
-			<span class="input-group-btn">
-                        <button type="button" id="location_set_btn" class="btn btn-primary" onclick="set_location()"/>
+        <li id="basic_tab_con_1"{%if tab == "1"%} class="active"{%end%}>
+        <div class="row" style="border-bottom: 1px solid rgba(0,0,0,0.1);margin-left: 2em;margin-right:2em; padding: 2em 2em;">
+              <div class="col-md-offset-3 col-md-6">
+                  <div class="form-group">
+                        <label>设备位置
+                        </label>
+                        <input type="text" class="form-control" aria-label="..." id="device_location" value="{{basic_info['location']}}"/>
+                  </div>
+                        <button type="submit" id="location_set_btn" class="btn btn-primary" onclick="set_location()"/>
 			设置
 			</button>
-			</span>
-                    </div><!-- /input-group -->
-                      <br/>
+                </div>
 		</div><!--row-->
-		<div class="row">
-                  <div class="col-lg-5">
-                        <div class="row input-group">
-                            <span class="input-group-addon">
+                <div class="row" style="padding: 2em;margin-left: 2em;margin-right:2em;">
+                  <div class="col-md-offset-3 col-md-6">
+                        <div class="form-group">
+                            <label>
                                 用户名称
-                            </span>
+                            </label>
 
                             <input type="text" class="form-control" aria-label="..." id="user_name">
                         </div>
-			<p></p>
-                        <div class="row input-group">
-                            <span class="input-group-addon">
+                        <div class="form-group">
+                            <label>
                                 用户密码
-                            </span>
+                            </label>
 
                             <input type="password" class="form-control" aria-label="..." id="user_password">
                         </div>
-			<p></p>
-                        <div class="row input-group">
-				<span class="input-group-addon">
-                               		<span >关联设备</span>
-                               		<input type="checkbox" aria-label="..." id="is_observed">
-				</span>
-				<span class="input-group-btn">
-                        	<button type="button" id="observer_set_btn" class="btn btn-primary" onclick="user_observer()"/>
+                        <div class="checkbox">
+                            <label>
+                            <input type="checkbox" id="is_observed"> 关联设备
+                            </label>
+                        </div>
+                        	<button type="submit" id="observer_set_btn" class="btn btn-primary" onclick="user_observer()"/>
 				设置
 				</button>
-				</span>
-                        </div>
-                  </div><!-- /.col-lg-6 -->
+                  </div><!-- /.col-md-6 -->
                   </div><!-- /.row -->
-                  <br/>
 
-              </div>
-            </div>
         </li>
 
         <!--tab 2-->
-        <li id="basic_tab_con_2">
-            <div class="panel panel-default">
-              <div class="panel-heading">系统时间</div>
-              <div class="panel-body">
-                  <div class="row">
-                      <div class="col-lg-6">
+        <li id="basic_tab_con_2"{%if tab == "2"%}class="active"{%end%}>
+        <div class="row" style="margin:2em;">
+                      <div class="col-md-6 col-md-offset-3">
                         <div class="input-group">
                           <span class="input-group-addon">
                             设备时间
@@ -100,9 +84,8 @@
                         </div><!-- /input-group -->
                       </div><!-- /.col-lg-6 -->
                   </div><!-- /.row -->
-                  <p></p>
-                  <div class="row">
-                      <div class="col-lg-6">
+                  <div class="row" style="margin:2em;">
+                      <div class="col-md-6 col-md-offset-3">
                         <div class="input-group">
                           <span class="input-group-addon">
                             设置时间
@@ -115,10 +98,7 @@
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
                   </div>
-                  <p></p>
 
-              </div>
-            </div>
         </li>
 
 
@@ -127,16 +107,18 @@
             $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
         </script>
 
-        <li id="basic_tab_con_3">
-		<div class="row">
+        <li id="basic_tab_con_3"{%if tab=="3"%}class="active"{%end%}>
+        <div class="row" style="margin: 2em;">
 		<div class="panel panel-default">
                 <div class="panel-heading">摄像头信息</div>
                 <div class="panel-body">
                 <table class="table table-bordered table-striped">
                     <colgroup>
-                        <col class="col-xs-3">
-                        <col class="col-xs-3">
-			<col class="col-xs-3">
+                        <col class="col-xs-1">
+                        <col class="col-xs-1">
+			<col class="col-xs-1">
+			<col class="col-xs-1">
+			<col class="col-xs-5">
                     </colgroup>
                     <thead>
                     <tr>
@@ -144,6 +126,7 @@
                         <th>编号</th>
                         <th>目标</th>
                         <th>周期</th>
+                        <th>摄像头地址</th>
                     </tr>
                     </thead>
                     {%for pos in positions%}
@@ -152,10 +135,11 @@
                         <td class="position">{{pos['position']}}</td>
                         <td class="object_name">{{pos['object_name']}}</td>
                         <td class="duration">{{pos['duration']}}</td>
+                        <td class="ip_address">{{pos['ip_address']}}</td>
                     </tr>
                     {%end%}
                 </table>
-                    <div class="row">
+                <div class="row" style="margin:2em;">
                         <div class="btn-group" role="group">
                             <input type="text" id="add_dev_info" class=" btn btn-primary" role="button" value="添加" onclick="add_dev_info()">
                             <input type="text" id="edit_dev_info" class="btn btn-primary" role="button" value="编辑" onclick="edit_dev_info()">
@@ -166,12 +150,12 @@
                 </div>
             </div>
 	    </div>
-	    <div class="row">
+            <div class="row" style="margin: 2em;">
             <div class="panel panel-default">
               <div class="panel-heading">重启</div>
               <div class="panel-body">
                   <div class="row">
-                      <div class="col-lg-6">
+                      <div class="col-md-3">
                         <div class="input-group">
                           <span class="input-group-addon">
                             重启设备
