@@ -73,7 +73,7 @@ def get_basic_conf_value(kw):
     # return
 
 def set_basic_conf_value(kw):
-    conf_dir = get_pwd_dir() + '/conf/device_conf.ini'
+    conf_dir = get_pwd_dir()+'/conf/device_conf.ini'
     # print conf_dir
     write_conf(conf_dir, kw)
     # kw['storage'] = str(disk_stat()['available'])
@@ -81,7 +81,7 @@ def set_basic_conf_value(kw):
 def read_conf(conf_dir, kw):
     config = ConfigParser.ConfigParser()
     config.read(conf_dir)
-    kw['device_location'] = config.get('dev', 'location')
+    kw['location'] = config.get('dev', 'location')
 
 def write_conf(conf_dir, kw):
     config = ConfigParser.ConfigParser()
@@ -93,6 +93,7 @@ def write_conf(conf_dir, kw):
     config.set('dev', 'location', kw['location'])
     # device_type = config.get('conf', 'device_type')
     # channel_number = config.get('conf', 'channel_number')
+    print config
     config.write(fp)
     fp.close()
 

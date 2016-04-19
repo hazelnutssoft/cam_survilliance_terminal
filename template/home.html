@@ -6,14 +6,14 @@
 {%block title%}主页{%end%}
 
 {%block content%}
-<div class="row">
-    <div class="col-sm-6 col-md-3 col-lg-6">
+<div class="row" style="margin: 2em;">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="caption" style="margin-top: 100px">
             <h3>欢迎使用-物候监测系统</h3>
 
         </div>
     </div>
-    <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
+    <div class="panel panel-default col-sm-6 col-md-6 col-lg-6">
         <div class="panel-heading">基本信息</div>
         <div class="panel-body">
             <table class="table table-bordered table-striped">
@@ -29,7 +29,7 @@
                 </thead>
                 <tr>
                     <td class="active">设备地址</td>
-                    <td >{{basic_info['device_location']}}</td>
+                    <td >{{basic_info['location']}}</td>
                 </tr>
                 <tr>
                     <td class="active">剩余存储</td>

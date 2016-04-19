@@ -26,11 +26,10 @@
         <p></p>
 
         <li id="basic_tab_con_1" class="active">
-            <div class="panel panel-default col-sm-6 col-md-3  col-lg-6">
+            <div class="panel panel-default">
                 <div class="panel-heading">摄像头信息</div>
                 <div class="panel-body">
                     <div class="row">
-                      <div class="col-lg-8">
                         <div class="input-group">
                           <span class="input-group-addon">
                             观测目标名称
@@ -40,12 +39,17 @@
                                     <option value="{{object_name}}">{{object_name}}</option>
                                 {%end%}
                           </select>
+                          {%if operator=="edit"%}
+                          <script type="text/javascript">
+                          window.onload=function(){
+                                       document.getElementById("object_name").value='{{object_name}}';
+                          }
+                          </script>
+                          {%end%}
                         </div><!-- /input-group -->
-                      </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
                     {% if operator== "add" %}
                     <div class="row">
-                      <div class="col-lg-8">
                         <div class="input-group">
                           <span class="input-group-addon">
                             编号
@@ -57,24 +61,20 @@
                                 {%end%}
                           </select>
                         </div><!-- /input-group -->
-                      </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
                     {%else%}
                     <div class="row">
-                      <div class="col-lg-8">
                         <div class="input-group">
                           <span class="input-group-addon">
                             编号
                           </span>
 
-                            <input type="text" class="form-control" readonly="readonly" id="position">
+                            <input type="text" class="form-control" readonly="readonly" id="position" value="{{position}}">
 
                         </div><!-- /input-group -->
-                      </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
                     {%end%}
                     <div class="row">
-                      <div class="col-lg-8">
                         <div class="input-group">
                           <span class="input-group-addon">
                             拍摄间隔
@@ -86,32 +86,36 @@
                               <option value="3">3h</option>
                               <option value="1">1h</option>
                           </select>
+                          {%if operator == "edit"%}
+                          <script type="text/javascript">
+                          window.onload=function(){
+                                       document.getElementById("duration").value='{{duration}}';
+                          }
+                          </script>
+                          {%end%}
                         </div><!-- /input-group -->
-                      </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
                     <div class="row">
-                      <div class="col-lg-8">
                         <div class="input-group">
                           <span class="input-group-addon">
                             摄像机IP地址
                           </span>
-                          <input class="form-control" id="ip_address" type="text">
+                          <input class="form-control" id="ip_address" type="text" value="{{ip_address}}">
 
                         </div><!-- /input-group -->
-                      </div><!-- /.col-lg-6 -->
                     </div><!-- /.row -->
                     {%if operator == 'add'%}
                     <div class="row">
-                        <div class="input-group">
-                            <input type="text" id="apply_add" class="input-group-addon form-control btn btn-primary" role="button" value="应用" onclick="apply_adding()">
-                            <input type="text" id="cancel_add" class="form-control btn btn-primary" role="button" value="取消" onclick="cancel_adding()">
+                        <div class="input-group btn-group">
+                            <input type="text" id="apply_add" class="btn btn-primary" role="button" value="应用" onclick="apply_adding()">
+                            <input type="text" id="cancel_add" class="btn btn-primary" role="button" value="取消" onclick="cancel_adding()">
                         </div><!-- /input-group -->
                     </div>
                     {%else%}
                     <div class="row">
-                        <div class="input-group">
-                            <input type="text" id="apply_edit" class="input-group-addon form-control btn btn-primary" role="button" value="应用" onclick="apply_edition()">
-                            <input type="text" id="cancel_edit" class="form-control btn btn-primary" role="button" value="取消" onclick="cancel_edition()">
+                        <div class="input-group btn-group">
+                            <input type="text" id="apply_edit" class="btn btn-primary" role="button" value="应用" onclick="apply_edition()">
+                            <input type="text" id="cancel_edit" class="btn btn-primary" role="button" value="取消" onclick="cancel_edition()">
                         </div><!-- /input-group -->
                     </div>
                     {%end%}

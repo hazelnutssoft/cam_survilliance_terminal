@@ -24,8 +24,8 @@ DB_IAMGE_TABLE_NAME = 'image'
 DB_POSITION_TABLE_NAME = 'position'
 
 #about res
-RES_SUCESS = 0
-RES_FAIL = 1
+RES_SUCCESS = "ok"
+RES_FAIL = "fail"
 
 #about img page
 PAGE_NUMBER = 16
@@ -39,6 +39,8 @@ UPLOAD_IMG_URL = "/api/upload_image"
 CTRL_URL = "/api/ctrl"
 
 DEVICE_URL = "/api/device"
+
+POSITION_URL = "/api/position"
 
 OBSERVER_URL = "/api/observer"
 

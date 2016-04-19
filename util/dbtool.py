@@ -39,9 +39,9 @@ class database_resource:
 
 def add_caputured_image(filename, position, width, height):
     with database_resource() as cursor:
-        sqlstr = 'insert into %s (image_path, position, created_at, width, height)'%(DB_IAMGE_TABLE_NAME)
-        sqlstr = sqlstr+'values (%s, %s, %s, %s, %s)'
-        res = cursor.execute(sqlstr,[filename, position, create_nowTime(), width, height])
+        sqlstr = 'insert into %s (image_path, position, created_at, width, height, is_updated)'%(DB_IAMGE_TABLE_NAME)
+        sqlstr = sqlstr+'values (%s, %s, %s, %s, %s, %s)'
+        res = cursor.execute(sqlstr,[filename, position, time.time(), width, height, 0])
         if res > 0:
             return True
         else:
@@ -69,22 +69,29 @@ def insert_position(object_name, position, duration, ip_address):
     with database_resource() as cursor:
         sqlstr = 'insert into %s (object_name, position, duration, ip_address)' % (DB_POSITION_TABLE_NAME)
         sqlstr = sqlstr+ 'values (%s, %s, %s, %s)'
-        res = cursor.execute(sqlstr, [object_name, position, duration, ip_address])
-        if res >0:
+        try:
+            res = cursor.execute(sqlstr, [object_name, position, duration, ip_address])
             return True
-        else:
+        except Exception as e:
             return False
 
 def update_position(object_name, position, duration, ip_address):
     with database_resource() as cursor:
-        sqlstr = 'update %s set object_name = %s, duration=%s, ip_address=%s where position = %s' % (DB_POSITION_TABLE_NAME, object_name, duration, ip_address, position)
+        sqlstr = 'update %s set object_name = \'%s\', duration=%s, ip_address=\'%s\' where position = %s' % (DB_POSITION_TABLE_NAME, object_name, duration, ip_address, position)
+        try:
+            res = cursor.execute(sqlstr)
+            return True
+        except:
+            return False
+
+def delete_position(position):
+    with database_resource() as cursor:
+        sqlstr = "delete from %s where position = %s" % (DB_POSITION_TABLE_NAME, str(position))
         res = cursor.execute(sqlstr)
         if res > 0:
             return True
         else:
             return False
-
-
 def get_positions():
     conn = create_engine(DB_USER, DB_USER_PASSWORD, DB_NAME, is_auto_commit=True)
     cursor = conn.cursor(dictionary=True)
